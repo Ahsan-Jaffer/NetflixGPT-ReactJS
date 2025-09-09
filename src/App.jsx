@@ -1,15 +1,17 @@
-import Body from "./components/Body";
-import Card from "./components/Card";
-import Login from "./components/Login";
+import React from 'react'
+import Login from './components/Login'
+import Body from './components/Body'
 
- function App() {
-  return(
-    <div className="text-3xl font-bold text-green-400">
-      <h1>Ahsan Is building netflic gpt</h1>
-      
-
+const App = () => {
+  return (
+    <div>
+      <Body />
     </div>
   )
 }
 
-export default App;
+export default App
+
+
+
+

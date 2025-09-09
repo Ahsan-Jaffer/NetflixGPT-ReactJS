@@ -1,11 +1,8 @@
-export default {
-  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
-  theme: {
-    extend: {
-      fontFamily: {
-        gilroy: ["Gilroy", "sans-serif"],
-      },
-    },
-  },
-  plugins: [],
-}
+/** @type {import('tailwindcss').Config} */
+export const content = [
+  "./src/**/*.{js,jsx,ts,tsx}", // React files ke liye
+];
+export const theme = {
+  extend: {},
+};
+export const plugins = [];
