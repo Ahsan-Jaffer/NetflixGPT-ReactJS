@@ -26,3 +26,13 @@ const Body = () => {
 }  
 
 export default Body
+
+
+
+
+
+
+
+
+
+git remote add origin https://github.com/Ahsan-Jaffer/NetflixGPT-ReactJS.git
