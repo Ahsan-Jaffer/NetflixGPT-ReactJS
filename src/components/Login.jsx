@@ -1,15 +1,27 @@
-import React, {useState} from "react";
+import React, { useState, useRef } from "react";
 import Header from "./Header";
+import { checkValidData } from "../utils/validate";
 
 const Login = () => {
+  const [isSignInForm, setIsSignInForm] = useState(true);
+  const [errorMessage, setErrorMessage] = useState(null);
 
-    const [isSignInForm, setIsSignInForm] = useState(true);
+  const email = useRef(null);
+  const password = useRef(null);
+  const name = useRef(null);
 
-    const toggleSignInForm = () => {
-       
-        setIsSignInForm(prev => !prev);
-        
-    }
+  const toggleSignInForm = () => {
+    setIsSignInForm((prev) => !prev);
+  };
+
+  const handleButtonClick = (e) => {
+    e.preventDefault();
+    //validate the form data
+    const message = checkValidData(email.current.value, password.current.value);
+    setErrorMessage(message);
+    
+   
+  };
   return (
     <div className="relative">
       <Header />
@@ -21,64 +33,73 @@ const Login = () => {
       />
 
       <div className="absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] flex items-center justify-center min-h-screen bg-[url('https://assets.nflxext.com/ffe/siteui/vlv3/88f24fef-c3d3-4ed6-9396-d463c94c7f8a/f9d2e07b-10dd-4727-9398-6568b9f0e9c1/PK-en-20230814-popsignuptwoweeks-perspective_alpha_website_small.jpg')] bg-cover bg-center ">
-       
-
         {/* Login Box */}
-        <div 
-        className="relative z-10 w-[90%] max-w-md p-8 bg-black/75 rounded"
-        >
-          <h1 className="text-2xl font-bold text-white mb-6"> {isSignInForm? "Sign in": "Sign up"} </h1>
+        <div className="relative z-10 w-[90%] max-w-md p-8 bg-black/75 rounded">
+          <h1 className="text-2xl font-bold text-white mb-6">
+            {" "}
+            {isSignInForm ? "Sign in" : "Sign up"}{" "}
+          </h1>
 
-          {/* Email Input */}
+          {/* name Input */}
 
-          {!isSignInForm && <input
-            type="text"
-            placeholder="Full Name"
-            className="w-full p-3 mb-4 rounded bg-gray-800 text-white placeholder-gray-400 focus:outline-none"
-          />}
+          {!isSignInForm && (
+            <input
+              ref={name}
+              type="text"
+              placeholder="Full Name"
+              className="w-full p-3 mb-4 rounded bg-gray-800 text-white placeholder-gray-400 focus:outline-none"
+            />
+          )}
           {/* Email Input */}
           <input
+            ref={email}
             type="text"
             placeholder="Email or mobile number"
             className="w-full p-3 mb-4 rounded bg-gray-800 text-white placeholder-gray-400 focus:outline-none"
           />
 
-         
+          {/* Password Input */}
           <input
+            ref={password}
             type="password"
             placeholder="Password"
-            className="w-full p-3 mb-6 rounded bg-gray-800 text-white placeholder-gray-400 focus:outline-none"
+            className="w-full p-3 mb-5 rounded bg-gray-800 text-white placeholder-gray-400 focus:outline-none"
           />
+          {/* error message */}
+          <p className="text-red-500 font-semibold mb-5">{errorMessage}</p>
 
           {/* Sign In Button */}
-          <button className="w-full bg-red-600 py-3 rounded text-white font-semibold hover:bg-red-700 transition">
+          <button
+            onClick={handleButtonClick}
+            className="w-full bg-red-600 py-3 rounded text-white font-semibold hover:bg-red-700 transition"
+          >
             {isSignInForm ? "Sign In" : "Sign Up"}
           </button>
 
           <div className="flex items-center justify-between text-sm font-semibold text-gray-400 mt-4">
-          <p className="text-gray-400 text-sm mt-4">
-  {isSignInForm ? (
-    <>
-      New to Netflix?{" "}
-      <span 
-      onClick={toggleSignInForm}
-      className="text-white hover:underline cursor-pointer">
-        Sign up now.
-      </span>
-    </>
-  ) : (
-    <>
-      Already a user?{" "}
-      <span 
-      onClick={toggleSignInForm}
-      className="text-white hover:underline cursor-pointer">
-        
-        Sign in here.
-      </span>
-    </>
-  )}
-</p>
-
+            <p className="text-gray-400 text-sm mt-4">
+              {isSignInForm ? (
+                <>
+                  New to Netflix?{" "}
+                  <span
+                    onClick={toggleSignInForm}
+                    className="text-white hover:underline cursor-pointer"
+                  >
+                    Sign up now.
+                  </span>
+                </>
+              ) : (
+                <>
+                  Already a user?{" "}
+                  <span
+                    onClick={toggleSignInForm}
+                    className="text-white hover:underline cursor-pointer"
+                  >
+                    Sign in here.
+                  </span>
+                </>
+              )}
+            </p>
           </div>
         </div>
       </div>
